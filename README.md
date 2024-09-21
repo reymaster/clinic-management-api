@@ -1,85 +1,194 @@
-<p align="center">
-  <a href="http://nestjs.com/" target="blank"><img src="https://nestjs.com/img/logo-small.svg" width="120" alt="Nest Logo" /></a>
-</p>
+Aqui está um modelo de **README.md** em português, moderno e detalhado para o seu projeto:
 
-[circleci-image]: https://img.shields.io/circleci/build/github/nestjs/nest/master?token=abc123def456
-[circleci-url]: https://circleci.com/gh/nestjs/nest
+---
 
-  <p align="center">A progressive <a href="http://nodejs.org" target="_blank">Node.js</a> framework for building efficient and scalable server-side applications.</p>
-    <p align="center">
-<a href="https://www.npmjs.com/~nestjscore" target="_blank"><img src="https://img.shields.io/npm/v/@nestjs/core.svg" alt="NPM Version" /></a>
-<a href="https://www.npmjs.com/~nestjscore" target="_blank"><img src="https://img.shields.io/npm/l/@nestjs/core.svg" alt="Package License" /></a>
-<a href="https://www.npmjs.com/~nestjscore" target="_blank"><img src="https://img.shields.io/npm/dm/@nestjs/common.svg" alt="NPM Downloads" /></a>
-<a href="https://circleci.com/gh/nestjs/nest" target="_blank"><img src="https://img.shields.io/circleci/build/github/nestjs/nest/master" alt="CircleCI" /></a>
-<a href="https://coveralls.io/github/nestjs/nest?branch=master" target="_blank"><img src="https://coveralls.io/repos/github/nestjs/nest/badge.svg?branch=master#9" alt="Coverage" /></a>
-<a href="https://discord.gg/G7Qnnhy" target="_blank"><img src="https://img.shields.io/badge/discord-online-brightgreen.svg" alt="Discord"/></a>
-<a href="https://opencollective.com/nest#backer" target="_blank"><img src="https://opencollective.com/nest/backers/badge.svg" alt="Backers on Open Collective" /></a>
-<a href="https://opencollective.com/nest#sponsor" target="_blank"><img src="https://opencollective.com/nest/sponsors/badge.svg" alt="Sponsors on Open Collective" /></a>
-  <a href="https://paypal.me/kamilmysliwiec" target="_blank"><img src="https://img.shields.io/badge/Donate-PayPal-ff3f59.svg" alt="Donate us"/></a>
-    <a href="https://opencollective.com/nest#sponsor"  target="_blank"><img src="https://img.shields.io/badge/Support%20us-Open%20Collective-41B883.svg" alt="Support us"></a>
-  <a href="https://twitter.com/nestframework" target="_blank"><img src="https://img.shields.io/twitter/follow/nestframework.svg?style=social&label=Follow" alt="Follow us on Twitter"></a>
-</p>
-  <!--[![Backers on Open Collective](https://opencollective.com/nest/backers/badge.svg)](https://opencollective.com/nest#backer)
-  [![Sponsors on Open Collective](https://opencollective.com/nest/sponsors/badge.svg)](https://opencollective.com/nest#sponsor)-->
+# **API de Gestão de Clínica**
 
-## Description
+### 🚀 **Sistema Automatizado de Gestão de Clínica**
 
-[Nest](https://github.com/nestjs/nest) framework TypeScript starter repository.
+Esta é a API backend para o **Sistema de Gestão de Clínica**, desenvolvida com **NestJS**. O sistema oferece agendamento automatizado de consultas, rastreamento de disponibilidade de equipamentos, coleta de feedbacks, e automação de tarefas administrativas para uma clínica especializada em tratamentos de pele, faciais e corporais.
 
-## Project setup
+---
+
+## 📜 **Sumário**
+
+- [Funcionalidades](#funcionalidades)
+- [Tecnologias Utilizadas](#tecnologias-utilizadas)
+- [Começando](#começando)
+  - [Pré-requisitos](#pré-requisitos)
+  - [Instalação](#instalação)
+  - [Executando a API](#executando-a-api)
+- [Documentação da API](#documentação-da-api)
+  - [Autenticação](#autenticação)
+  - [Agendamentos](#agendamentos)
+  - [Tratamentos](#tratamentos)
+  - [Feedbacks](#feedbacks)
+  - [Ferramentas Administrativas](#ferramentas-administrativas)
+- [Variáveis de Ambiente](#variáveis-de-ambiente)
+- [Testes](#testes)
+- [Contribuindo](#contribuindo)
+- [Licença](#licença)
+
+---
+
+## 🌟 **Funcionalidades**
+
+- **Automatização de Agendamentos**: Gerencie a disponibilidade de tratamentos e equipamentos com eficiência.
+- **Integração de Comunicação**: Envio automático de e-mails de confirmação, lembretes e instruções pré/pós-tratamento.
+- **Coleta de Feedbacks**: Sistema automatizado para coletar a opinião dos clientes após o tratamento.
+- **Automação Administrativa**: Gestão de contratos, relatórios e controle de documentos.
+
+---
+
+## 🛠️ **Tecnologias Utilizadas**
+
+- **NestJS**: Framework Node.js para construção de APIs escaláveis e eficientes.
+- **TypeORM**: ORM para gerenciamento do banco de dados PostgreSQL.
+- **Passport + JWT**: Autenticação segura com token JWT.
+- **SendGrid**: Integração para envio de e-mails transacionais.
+- **PostgreSQL**: Banco de dados relacional para armazenar todas as informações do sistema.
+
+---
+
+## 🚀 **Começando**
+
+### Pré-requisitos
+
+Antes de começar, você vai precisar ter as seguintes ferramentas instaladas:
+
+- [Node.js](https://nodejs.org/en/) (v14+)
+- [PostgreSQL](https://www.postgresql.org/download/)
+- [NestJS CLI](https://docs.nestjs.com/cli/overview)
+
+### Instalação
+
+1. Clone o repositório:
 
 ```bash
-$ pnpm install
+git clone https://github.com/sua-conta/clinic-management-api.git
+cd clinic-management-api
 ```
 
-## Compile and run the project
+2. Instale as dependências:
 
 ```bash
-# development
-$ pnpm run start
-
-# watch mode
-$ pnpm run start:dev
-
-# production mode
-$ pnpm run start:prod
+npm install
 ```
 
-## Run tests
+### Executando a API
+
+1. Crie um arquivo `.env` com as variáveis de ambiente necessárias (consulte a seção [Variáveis de Ambiente](#variáveis-de-ambiente)).
+2. Inicie o servidor de desenvolvimento:
 
 ```bash
-# unit tests
-$ pnpm run test
-
-# e2e tests
-$ pnpm run test:e2e
-
-# test coverage
-$ pnpm run test:cov
+npm run start:dev
 ```
 
-## Resources
+3. A API estará disponível em `http://localhost:3000`.
 
-Check out a few resources that may come in handy when working with NestJS:
+---
 
-- Visit the [NestJS Documentation](https://docs.nestjs.com) to learn more about the framework.
-- For questions and support, please visit our [Discord channel](https://discord.gg/G7Qnnhy).
-- To dive deeper and get more hands-on experience, check out our official video [courses](https://courses.nestjs.com/).
-- Visualize your application graph and interact with the NestJS application in real-time using [NestJS Devtools](https://devtools.nestjs.com).
-- Need help with your project (part-time to full-time)? Check out our official [enterprise support](https://enterprise.nestjs.com).
-- To stay in the loop and get updates, follow us on [X](https://x.com/nestframework) and [LinkedIn](https://linkedin.com/company/nestjs).
-- Looking for a job, or have a job to offer? Check out our official [Jobs board](https://jobs.nestjs.com).
+## 📖 **Documentação da API**
 
-## Support
+A API oferece os seguintes principais endpoints:
 
-Nest is an MIT-licensed open source project. It can grow thanks to the sponsors and support by the amazing backers. If you'd like to join them, please [read more here](https://docs.nestjs.com/support).
+### 🔐 **Autenticação**
 
-## Stay in touch
+- **POST /auth/login**: Autenticação do usuário com e-mail e senha. Retorna um token JWT.
+- **POST /auth/register**: Registro de novos usuários no sistema.
 
-- Author - [Kamil Myśliwiec](https://twitter.com/kammysliwiec)
-- Website - [https://nestjs.com](https://nestjs.com/)
-- Twitter - [@nestframework](https://twitter.com/nestframework)
+### 📅 **Agendamentos**
 
-## License
+- **POST /appointments**: Criação de um novo agendamento.
+- **GET /appointments**: Listagem de todos os agendamentos.
+- **GET /appointments/:id**: Detalhes de um agendamento específico.
+- **PATCH /appointments/:id**: Atualização de status ou detalhes de um agendamento.
+- **DELETE /appointments/:id**: Cancelamento de um agendamento.
 
-Nest is [MIT licensed](https://github.com/nestjs/nest/blob/master/LICENSE).
+### 💆 **Tratamentos**
+
+- **POST /treatments**: Criação de novos tratamentos.
+- **GET /treatments**: Listagem de todos os tratamentos disponíveis.
+- **PATCH /treatments/:id**: Atualização de um tratamento.
+
+### ✍️ **Feedbacks**
+
+- **POST /feedbacks**: Envio de feedback de um cliente após o tratamento.
+- **GET /feedbacks**: Listagem de feedbacks recebidos.
+
+### 📊 **Ferramentas Administrativas**
+
+- **GET /admin/reports**: Relatórios gerenciais sobre a performance da clínica.
+- **GET /admin/contracts**: Gestão de contratos e documentos administrativos.
+- **POST /admin/licenses**: Atualização e controle de licenças e alvarás.
+
+---
+
+## 🔧 **Variáveis de Ambiente**
+
+Configure as seguintes variáveis de ambiente no arquivo `.env`:
+
+```bash
+DB_HOST=localhost
+DB_PORT=5432
+DB_USERNAME=usuario
+DB_PASSWORD=senha
+DB_DATABASE=clinic_management
+
+JWT_SECRET=sua-chave-secreta
+SENDGRID_API_KEY=sua-chave-api-sendgrid
+```
+
+---
+
+## 🧪 **Testes**
+
+1. **Testes Unitários**:
+   - Para rodar os testes unitários:
+
+   ```bash
+   npm run test
+   ```
+
+2. **Testes de Integração**:
+   - Para rodar os testes de integração:
+
+   ```bash
+   npm run test:integration
+   ```
+
+3. **Testes de Ponta a Ponta (E2E)**:
+   - Para rodar os testes E2E:
+
+   ```bash
+   npm run test:e2e
+   ```
+
+---
+
+## 🤝 **Contribuindo**
+
+1. Faça um **fork** do projeto.
+2. Crie uma nova branch: `git checkout -b minha-nova-funcionalidade`.
+3. Faça suas modificações e **commit**: `git commit -m 'Adiciona nova funcionalidade'`.
+4. Envie para o seu repositório fork: `git push origin minha-nova-funcionalidade`.
+5. Envie um **Pull Request**.
+
+---
+
+## 📜 **Licença**
+
+Este projeto está sob a licença **MIT**. Para mais detalhes, consulte o arquivo [LICENSE](LICENSE).
+
+---
+
+## ✨ **Contato**
+
+Em caso de dúvidas ou sugestões, entre em contato:
+
+- **Email**: contato@clinicmanagement.com
+- **LinkedIn**: [seu perfil](https://www.linkedin.com/in/reinaldonascimento/)
+
+---
+
+Este **README** cobre os pontos principais para facilitar o entendimento do projeto e sua configuração. Se precisar de mais detalhes ou quiser ajustar alguma parte, fico à disposição para ajudar!
