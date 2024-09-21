@@ -65,7 +65,7 @@ Antes de começar, você vai precisar ter as seguintes ferramentas instaladas:
 1. Clone o repositório:
 
 ```bash
-git clone https://github.com/sua-conta/clinic-management-api.git
+git clone https://github.com/reymaster/clinic-management-api.git
 cd clinic-management-api
 ```
 
@@ -186,7 +186,7 @@ Este projeto está sob a licença **MIT**. Para mais detalhes, consulte o arquiv
 
 Em caso de dúvidas ou sugestões, entre em contato:
 
-- **Email**: contato@clinicmanagement.com
+- **Email**: reymaster@gmail.com
 - **LinkedIn**: [seu perfil](https://www.linkedin.com/in/reinaldonascimento/)
 
 ---
