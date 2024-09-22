@@ -14,7 +14,10 @@ export class UserService {
   ) {}
 
   async login(email: string, password: string): Promise<User> {
-    const user = await this.userRepository.findOne({ where: { email } });
+    const user = await this.userRepository.findOne({
+      where: { email },
+      select: ['id', 'email', 'password', 'role'],
+    });
     if (!user) {
       throw new NotFoundException(`Usuário com email ${email} não encontrado`);
     }
@@ -48,7 +51,10 @@ export class UserService {
   }
 
   async findByEmail(email: string): Promise<User | undefined> {
-    return this.userRepository.findOne({ where: { email } });
+    return this.userRepository.findOne({
+      where: { email },
+      select: ['id', 'email', 'password', 'role', 'createdAt', 'updatedAt'],
+    });
   }
 
   // Criar um novo usuário

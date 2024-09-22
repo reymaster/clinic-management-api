@@ -4,6 +4,8 @@ import {
   PrimaryGeneratedColumn,
   ManyToMany,
   JoinTable,
+  CreateDateColumn,
+  UpdateDateColumn,
 } from 'typeorm';
 import { Treatment } from '../treatment/treatment.entity';
 import { TreatmentGroup } from '../treatment-group/treatment-group.entity';
@@ -15,6 +17,12 @@ export class TreatmentCategory {
 
   @Column()
   name: string; // Nome da categoria (ex: Gordura Localizada)
+
+  @CreateDateColumn()
+  createdAt: Date;
+
+  @UpdateDateColumn()
+  updatedAt: Date;
 
   @ManyToMany(() => TreatmentGroup, (group) => group.categories)
   @JoinTable() // Cria a tabela pivot

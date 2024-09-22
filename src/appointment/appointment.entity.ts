@@ -8,6 +8,7 @@ import {
 } from 'typeorm';
 import { User } from '../user/user.entity';
 import { Treatment } from '../treatment/treatment.entity';
+import { EAppointmentStatus } from './appointment-status.enum';
 
 @Entity()
 export class Appointment {
@@ -23,8 +24,8 @@ export class Appointment {
   @ManyToOne(() => Treatment)
   treatment: Treatment;
 
-  @Column()
-  status: string; // pending, confirmed, completed, cancelled
+  @Column({ nullable: true, default: EAppointmentStatus.PENDING })
+  status?: EAppointmentStatus;
 
   @CreateDateColumn()
   createdAt: Date;

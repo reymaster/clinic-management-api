@@ -1,13 +1,22 @@
 import { IsString, IsEmail, MinLength } from 'class-validator';
 
 export class CreateUserDto {
+  @IsString()
+  name: string;
+
+  @IsString()
+  phone: string;
+
+  @IsString()
+  address: string;
+
   @IsEmail()
-  email: string; // O email deve ser válido
+  email: string;
 
   @IsString()
   @MinLength(6)
-  password: string; // A senha deve ter no mínimo 6 caracteres
+  password: string;
 
   @IsString()
-  role: string; // O papel do usuário (ex: 'admin' ou 'user')
+  role: string;
 }

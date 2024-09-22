@@ -27,10 +27,10 @@ export class Equipment {
   isActive: boolean; // Equipamento ativo ou não
 
   @CreateDateColumn()
-  createdAt: Date; // Data de criação do registro
+  createdAt: Date;
 
   @UpdateDateColumn()
-  updatedAt: Date; // Data da última atualização do registro
+  updatedAt: Date;
 
   @ManyToMany(() => Treatment, (treatment) => treatment.equipments)
   @JoinTable({ name: 'treatment_equipments_equipments' })
