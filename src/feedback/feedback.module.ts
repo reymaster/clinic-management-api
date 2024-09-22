@@ -12,5 +12,6 @@ import { UserService } from '../user/user.service';
   imports: [TypeOrmModule.forFeature([Feedback, User, Treatment])], // Registrando os repositórios
   controllers: [FeedbackController],
   providers: [FeedbackService, UserService, JwtService],
+  exports: [FeedbackService],
 })
 export class FeedbackModule {}

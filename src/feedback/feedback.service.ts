@@ -9,6 +9,8 @@ import { Feedback } from './feedback.entity';
 import { CreateFeedbackDto } from './dto/create-feedback.dto';
 import { User } from '../user/user.entity';
 import { Treatment } from '../treatment/treatment.entity';
+import { UserService } from '../user/user.service';
+import { TreatmentService } from '../treatment/treatment.service';
 
 @Injectable()
 export class FeedbackService {
@@ -16,23 +18,21 @@ export class FeedbackService {
     @InjectRepository(Feedback)
     private readonly feedbackRepository: Repository<Feedback>,
     @InjectRepository(User)
-    private readonly userRepository: Repository<User>,
+    private readonly userService: UserService,
     @InjectRepository(Treatment)
-    private readonly treatmentRepository: Repository<Treatment>,
+    private readonly treatmentService: TreatmentService,
   ) {}
 
   // Criação de feedback
   async create(createFeedbackDto: CreateFeedbackDto): Promise<Feedback> {
-    const client = await this.userRepository.findOne({
-      where: { id: createFeedbackDto.clientId },
-    });
+    const client = await this.userService.findOne(createFeedbackDto.clientId);
     if (!client) {
       throw new NotFoundException('Cliente não encontrado');
     }
 
-    const treatment = await this.treatmentRepository.findOne({
-      where: { id: createFeedbackDto.treatmentId },
-    });
+    const treatment = await this.treatmentService.findOne(
+      createFeedbackDto.treatmentId,
+    );
     if (!treatment) {
       throw new NotFoundException('Tratamento não encontrado');
     }
@@ -86,16 +86,14 @@ export class FeedbackService {
     // se o feedback for do mesmo cliente, ou o role do user for admin, atualiza
     this.validateUserPermission(feedback, user);
 
-    const client = await this.userRepository.findOne({
-      where: { id: createFeedbackDto.clientId },
-    });
+    const client = await this.userService.findOne(createFeedbackDto.clientId);
     if (!client) {
       throw new NotFoundException('Cliente não encontrado');
     }
 
-    const treatment = await this.treatmentRepository.findOne({
-      where: { id: createFeedbackDto.treatmentId },
-    });
+    const treatment = await this.treatmentService.findOne(
+      createFeedbackDto.treatmentId,
+    );
     if (!treatment) {
       throw new NotFoundException('Tratamento não encontrado');
     }
