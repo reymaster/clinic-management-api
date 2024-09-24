@@ -18,6 +18,12 @@ export class Appointment {
   @Column()
   date: Date;
 
+  @Column()
+  clientId: number;
+
+  @Column()
+  treatmentId: number;
+
   @ManyToOne(() => User)
   client: User;
 

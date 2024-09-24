@@ -17,6 +17,7 @@ import { Roles } from '../auth/roles.decorator';
 import { ERole } from '../auth/roles.enum';
 import { GetUser } from '../common/decorators/get-user.decorator';
 import { CreateAppointmentDto } from './dto/create-appointment.dto';
+import { EAppointmentStatus } from './appointment-status.enum';
 
 @Controller('appointment')
 @UseGuards(JwtAuthGuard, RolesGuard)
@@ -41,9 +42,9 @@ export class AppointmentController {
   }
 
   @Get()
-  @Roles(ERole.Admin)
-  async findAll(): Promise<Appointment[]> {
-    return this.appointmentService.findAll();
+  @Roles(ERole.Admin, ERole.User)
+  async findAll(@GetUser() user: any): Promise<Appointment[]> {
+    return this.appointmentService.findAll(user);
   }
 
   @Get(':id')
@@ -53,6 +54,21 @@ export class AppointmentController {
     @GetUser() user: any,
   ): Promise<Appointment> {
     return this.appointmentService.findOne(id, user);
+  }
+
+  @Get('status/:status')
+  @Roles(ERole.Admin, ERole.User)
+  async findByStatus(
+    @Param('status') status: EAppointmentStatus,
+    @GetUser() user: any,
+  ): Promise<Appointment[]> {
+    return this.appointmentService.findAllByStatus(status, user);
+  }
+
+  @Get('pending')
+  @Roles(ERole.Admin, ERole.User)
+  async findPending(@GetUser() user: any): Promise<Appointment[]> {
+    return this.appointmentService.findPendingAppointments(user);
   }
 
   @Patch(':id')

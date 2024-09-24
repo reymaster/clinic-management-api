@@ -22,8 +22,6 @@ export class UserController {
 
   // Endpoint para criar um novo usuário
   @Post()
-  @UseGuards(JwtAuthGuard, RolesGuard)
-  @Roles(ERole.Admin)
   create(@Body() createUserDto: CreateUserDto) {
     return this.userService.create(createUserDto);
   }

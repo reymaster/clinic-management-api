@@ -36,7 +36,9 @@ export class Treatment {
   @UpdateDateColumn()
   updatedAt: Date;
 
-  @ManyToMany(() => TreatmentCategory, (category) => category.treatments)
+  @ManyToMany(() => TreatmentCategory, (category) => category.treatments, {
+    eager: true,
+  })
   @JoinTable()
   categories: TreatmentCategory[];
 

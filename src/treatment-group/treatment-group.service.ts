@@ -19,7 +19,11 @@ export class TreatmentGroupService {
   }
 
   async findAll(): Promise<TreatmentGroup[]> {
-    return this.groupRepository.find({ relations: ['categories'] });
+    return this.groupRepository
+      .createQueryBuilder('treatmentGroup')
+      .leftJoinAndSelect('treatmentGroup.categories', 'treatmentCategory') // Relaciona com as categorias
+      .leftJoinAndSelect('treatmentCategory.treatments', 'treatment') // Relaciona as categorias com os tratamentos
+      .getMany();
   }
 
   async findOne(id: number): Promise<TreatmentGroup> {

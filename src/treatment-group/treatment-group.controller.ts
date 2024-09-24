@@ -27,7 +27,7 @@ export class TreatmentGroupController {
 
   @Get()
   @UseGuards(JwtAuthGuard, RolesGuard)
-  @Roles(ERole.Admin)
+  @Roles(ERole.Admin, ERole.User)
   findAll() {
     return this.groupService.findAll();
   }

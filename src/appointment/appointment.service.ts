@@ -9,6 +9,8 @@ import { Appointment } from './appointment.entity';
 import { CreateAppointmentDto } from './dto/create-appointment.dto';
 import { UserService } from '../user/user.service';
 import { TreatmentService } from '../treatment/treatment.service';
+import { EAppointmentStatus } from './appointment-status.enum';
+import { User } from '../user/user.entity';
 
 @Injectable()
 export class AppointmentService {
@@ -56,10 +58,66 @@ export class AppointmentService {
     return this.appointmentRepository.save(entity);
   }
 
-  findAll(): Promise<Appointment[]> {
-    return this.appointmentRepository.find({
-      relations: ['client', 'treatment'],
-    });
+  async findAll(user: any): Promise<Appointment[]> {
+    if (user.role === 'admin') {
+      return this.appointmentRepository.find({
+        relations: ['client', 'treatment'],
+      });
+    } else {
+      const customer = await this.userService.findOne(user.id);
+
+      if (!customer) {
+        throw new NotFoundException('Cliente não encontrado');
+      }
+
+      return this.appointmentRepository.find({
+        where: { clientId: customer.id },
+        relations: ['client', 'treatment'],
+      });
+    }
+  }
+
+  async findAllByStatus(
+    status: EAppointmentStatus,
+    user: User,
+  ): Promise<Appointment[]> {
+    if (user.role === 'admin') {
+      return this.appointmentRepository.find({
+        where: { status },
+        relations: ['client', 'treatment'],
+      });
+    } else {
+      const customer = await this.userService.findOne(user.id);
+
+      if (!customer) {
+        throw new NotFoundException('Cliente não encontrado');
+      }
+
+      return this.appointmentRepository.find({
+        where: { clientId: customer.id, status },
+        relations: ['client', 'treatment'],
+      });
+    }
+  }
+
+  async findPendingAppointments(user: User): Promise<Appointment[]> {
+    if (user.role === 'admin') {
+      return this.appointmentRepository.find({
+        where: { status: EAppointmentStatus.PENDING },
+        relations: ['client', 'treatment'],
+      });
+    } else {
+      const customer = await this.userService.findOne(user.id);
+
+      if (!customer) {
+        throw new NotFoundException('Cliente não encontrado');
+      }
+
+      return this.appointmentRepository.find({
+        where: { clientId: customer.id, status: EAppointmentStatus.PENDING },
+        relations: ['client', 'treatment'],
+      });
+    }
   }
 
   async findOne(id: number, user: any): Promise<Appointment> {
