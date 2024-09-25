@@ -24,7 +24,7 @@ import { TreatmentCategoryModule } from './treatment-category/treatment-category
       database: process.env.DB_DATABASE,
       entities: ['dist/**/*.entity.js'],
       autoLoadEntities: true,
-      synchronize: true, // Não usar synchronize em produção!
+      synchronize: process.env.NODE_ENV === 'production' ? false : true, // Não usar synchronize em produção!
     }),
     AuthModule,
     UserModule,
