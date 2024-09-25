@@ -21,17 +21,23 @@ export class FeedbackController {
   constructor(private readonly feedbackService: FeedbackService) {}
 
   @Post()
-  @UseGuards(JwtAuthGuard, RolesGuard)
-  @Roles(ERole.Admin)
+  @UseGuards(JwtAuthGuard)
   create(@Body() createFeedbackDto: CreateFeedbackDto) {
     return this.feedbackService.create(createFeedbackDto);
   }
 
-  @Get()
+  @Get('/readed')
   @UseGuards(JwtAuthGuard, RolesGuard)
-  @Roles(ERole.Admin)
-  findAll() {
-    return this.feedbackService.findAll();
+  @Roles(ERole.Admin, ERole.User)
+  findAllReaded(@GetUser() user: any) {
+    return this.feedbackService.findAll(true, user);
+  }
+
+  @Get('/unreaded')
+  @UseGuards(JwtAuthGuard, RolesGuard)
+  @Roles(ERole.Admin, ERole.User)
+  findAllNew(@GetUser() user: any) {
+    return this.feedbackService.findAll(false, user);
   }
 
   @Get('treatment/:id')
@@ -51,7 +57,7 @@ export class FeedbackController {
 
   @Patch(':id')
   @UseGuards(JwtAuthGuard, RolesGuard)
-  @Roles(ERole.Admin)
+  @Roles(ERole.Admin, ERole.User)
   update(
     @Param('id') id: string,
     @Body() updateFeedbackDto: CreateFeedbackDto,

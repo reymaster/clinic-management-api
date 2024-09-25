@@ -27,13 +27,7 @@ export class AuthService {
     // Se o usuário não existir, retornar null
     const user = await this.userService.findByEmail(payload.email);
 
-    if (!user) {
-      return { access_token: null };
-    }
-
-    return {
-      access_token: this.jwtService.sign({ id: user.id, email: user.email }),
-    };
+    return this.login(user);
   }
 
   async validateUser(email: string, password: string): Promise<User> {

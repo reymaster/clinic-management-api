@@ -7,11 +7,22 @@ import { User } from '../user/user.entity';
 import { Treatment } from '../treatment/treatment.entity';
 import { JwtService } from '@nestjs/jwt';
 import { UserService } from '../user/user.service';
+import { TreatmentService } from '../treatment/treatment.service';
+import { TreatmentCategory } from '../treatment-category/treatment-category.entity';
+import { Equipment } from '../equipment/equipment.entity';
 
 @Module({
-  imports: [TypeOrmModule.forFeature([Feedback, User, Treatment])], // Registrando os repositórios
+  imports: [
+    TypeOrmModule.forFeature([
+      Feedback,
+      User,
+      Treatment,
+      TreatmentCategory,
+      Equipment,
+    ]),
+  ], // Registrando os repositórios
   controllers: [FeedbackController],
-  providers: [FeedbackService, UserService, JwtService],
+  providers: [FeedbackService, UserService, TreatmentService, JwtService],
   exports: [FeedbackService],
 })
 export class FeedbackModule {}

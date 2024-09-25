@@ -8,7 +8,6 @@ import { Repository } from 'typeorm';
 import { Feedback } from './feedback.entity';
 import { CreateFeedbackDto } from './dto/create-feedback.dto';
 import { User } from '../user/user.entity';
-import { Treatment } from '../treatment/treatment.entity';
 import { UserService } from '../user/user.service';
 import { TreatmentService } from '../treatment/treatment.service';
 
@@ -17,9 +16,7 @@ export class FeedbackService {
   constructor(
     @InjectRepository(Feedback)
     private readonly feedbackRepository: Repository<Feedback>,
-    @InjectRepository(User)
     private readonly userService: UserService,
-    @InjectRepository(Treatment)
     private readonly treatmentService: TreatmentService,
   ) {}
 
@@ -49,8 +46,21 @@ export class FeedbackService {
   }
 
   // Buscar todos os feedbacks
-  findAll(): Promise<Feedback[]> {
-    return this.feedbackRepository.find({ relations: ['client', 'treatment'] });
+  async findAll(readed = false, user: User): Promise<Feedback[]> {
+    const query = this.feedbackRepository
+      .createQueryBuilder('feedback')
+      .leftJoinAndSelect('feedback.client', 'client')
+      .leftJoinAndSelect('feedback.treatment', 'treatment');
+
+    const handleReaded = readed ? true : false;
+
+    query.andWhere('feedback.readed = :readed', { readed: handleReaded });
+
+    if (user.role !== 'admin') {
+      query.andWhere('feedback.client.id = :clientId', { clientId: user.id });
+    }
+
+    return query.getMany();
   }
 
   // Buscar feedback por ID
@@ -75,7 +85,7 @@ export class FeedbackService {
   // Atualizar feedback por ID
   async update(
     id: number,
-    createFeedbackDto: CreateFeedbackDto,
+    createFeedbackDto: Partial<CreateFeedbackDto>,
     user: any,
   ): Promise<Feedback> {
     const feedback = await this.findOne(id);
@@ -86,24 +96,12 @@ export class FeedbackService {
     // se o feedback for do mesmo cliente, ou o role do user for admin, atualiza
     this.validateUserPermission(feedback, user);
 
-    const client = await this.userService.findOne(createFeedbackDto.clientId);
-    if (!client) {
-      throw new NotFoundException('Cliente não encontrado');
-    }
-
-    const treatment = await this.treatmentService.findOne(
-      createFeedbackDto.treatmentId,
+    const updatedFeedback = this.feedbackRepository.merge(
+      feedback,
+      createFeedbackDto,
     );
-    if (!treatment) {
-      throw new NotFoundException('Tratamento não encontrado');
-    }
 
-    feedback.rating = createFeedbackDto.rating;
-    feedback.comment = createFeedbackDto.comment;
-    feedback.client = client;
-    feedback.treatment = treatment;
-
-    return this.feedbackRepository.save(feedback);
+    return this.feedbackRepository.save(updatedFeedback);
   }
 
   private validateUserPermission(feedback: Feedback, user: any) {

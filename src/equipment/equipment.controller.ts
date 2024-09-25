@@ -14,7 +14,6 @@ import { UpdateEquipmentDto } from './dto/update-equipment.dto';
 import { RolesGuard } from '../common/guards/roles.guard';
 import { Roles } from '../auth/roles.decorator';
 import { ERole } from '../auth/roles.enum';
-import { JwtAuthGuard } from '../common/guards/jwt-auth.guard';
 
 @Controller('equipment')
 export class EquipmentController {
@@ -26,8 +25,6 @@ export class EquipmentController {
   }
 
   @Get()
-  @UseGuards(JwtAuthGuard, RolesGuard)
-  @Roles(ERole.Admin)
   findAll() {
     return this.equipmentService.findAll();
   }

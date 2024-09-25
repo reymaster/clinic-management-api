@@ -19,6 +19,9 @@ export class Feedback {
   @Column()
   comment: string;
 
+  @Column({ default: false })
+  readed: boolean;
+
   @ManyToOne(() => User) // Relacionamento com o cliente que fez o feedback
   client: User;
 
